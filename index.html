@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Escola da Raiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#15122b;--panel:#201c3d;--ink:#f2ead8;--mute:#a9a2c4;--gold:#e3a72f;--line:#38325f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,sans-serif}
+h1,h2,h3,.he{font-family:'Frank Ruhl Libre',Georgia,serif}
+header{padding:28px 20px 8px;max-width:960px;margin:auto}
+h1{font-size:2.2rem;margin:0;font-weight:900}
+header p{color:var(--mute);margin:4px 0 0}
+nav{display:flex;gap:6px;flex-wrap:wrap;max-width:960px;margin:16px auto;padding:0 20px}
+nav button{background:none;border:1px solid var(--line);color:var(--mute);padding:10px 16px;border-radius:8px;cursor:pointer;font:inherit}
+nav button.on{background:var(--gold);color:#15122b;border-color:var(--gold);font-weight:700}
+main{max-width:960px;margin:auto;padding:0 20px 60px}
+section{display:none}section.on{display:block}
+input,textarea,select{width:100%;background:var(--panel);border:1px solid var(--line);color:var(--ink);padding:12px;border-radius:8px;font:inherit}
+textarea{min-height:220px;resize:vertical}
+button.b{background:var(--gold);color:#15122b;border:0;padding:12px 18px;border-radius:8px;font-weight:700;cursor:pointer;font:inherit;font-weight:700}
+button.g{background:var(--panel);color:var(--ink);border:1px solid var(--line);padding:10px 14px;border-radius:8px;cursor:pointer;font:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;cursor:pointer;text-align:left;color:inherit;font:inherit}
+.card:hover{border-color:var(--gold)}
+.he{font-size:3rem;direction:rtl;color:var(--gold);line-height:1.1}
+.tr{font-style:italic;color:var(--mute)}
+.det{background:var(--panel);border:1px solid var(--gold);border-radius:12px;padding:22px;margin-top:14px}
+.det h3{margin:.2em 0}
+.warn{border-left:3px solid var(--gold);padding:8px 14px;color:var(--mute);margin:18px 0}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0}
+.ck{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+.ck input{width:auto;margin-top:6px}
+#pr{position:fixed;inset:0;background:#000;display:none;flex-direction:column;z-index:9;padding:20px}
+#pr.on{display:flex}
+#ph{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:48px;line-height:1.25;padding:20px;color:#fff}
+#pc{display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<header>
+<h1>Escola da Raiz</h1>
+<p>Estude a palavra na origem. Ensine em pílulas. Grave frase por frase.</p>
+</header>
+<nav id="nav">
+<button data-t="raizes" class="on">Raízes hebraicas</button>
+<button data-t="pilula">Gerar pílula</button>
+<button data-t="orat">Oratória</button>
+<button data-t="plano">Plano de estudo</button>
+</nav>
+<main>
+
+<section id="raizes" class="on">
+<input id="q" placeholder="Buscar palavra, raiz ou tema (ex.: paz, voltar, peso)" aria-label="Buscar">
+<div class="warn">Regra de ouro do estudo sério: a raiz mostra o campo de sentido da palavra, mas o significado final vem do uso no texto e no contexto. Nunca diga que uma palavra "só significa" a raiz. Isso é o que separa profundidade de achismo.</div>
+<div class="grid" id="grid"></div>
+<div id="det"></div>
+</section>
+
+<section id="pilula">
+<p>Escolha uma palavra, gere o roteiro e mande para o teleprompter.</p>
+<div class="row"><select id="sel" aria-label="Palavra"></select>
+<select id="tom" aria-label="Tom"><option value="calmo">Tom calmo</option><option value="forte">Tom forte</option></select>
+<button class="b" id="gen">Gerar roteiro</button></div>
+<textarea id="txt" placeholder="O roteiro aparece aqui. Edite do seu jeito, uma frase por linha."></textarea>
+<div class="row"><button class="b" id="go">Abrir teleprompter</button>
+<button class="g" id="cp">Copiar legenda</button><span id="msg" class="tr"></span></div>
+</section>
+
+<section id="orat">
+<h2>Oratória: treino diário (20 min)</h2>
+<div id="ol"></div>
+<h3>Estrutura de uma pílula de 45 segundos</h3>
+<p><b>Gancho (5s):</b> uma pergunta ou afirmação que quebra a expectativa.<br>
+<b>Revelação (15s):</b> a palavra original e o que ela carrega.<br>
+<b>Virada (15s):</b> o que isso muda na vida da pessoa hoje.<br>
+<b>Ação (10s):</b> uma única coisa para fazer hoje e um convite para seguir.</p>
+</section>
+
+<section id="plano">
+<h2>Plano semanal</h2>
+<p class="tr">Seu progresso fica salvo neste navegador.</p>
+<div id="pl"></div>
+<button class="g" id="rs">Zerar semana</button>
+</section>
+</main>
+
+<div id="pr" role="dialog" aria-label="Teleprompter">
+<div id="ph"></div>
+<div id="pc">
+<button class="g" id="pp">Anterior</button>
+<span id="pn" class="tr"></span>
+<button class="b" id="pnx">Próxima</button>
+<button class="g" id="pm">A−</button><button class="g" id="pq">A+</button>
+<button class="g" id="px">Fechar</button>
+</div></div>
+
+<script>
+const W=[
+{h:"שָׁלוֹם",t:"shalom",r:"ש-ל-ם (shalem)",m:"inteireza, nada faltando",s:"A raiz fala de algo completo, inteiro. Shalom vai além de ausência de conflito: é bem-estar completo, relações e vida em ordem.",v:"Números 6:26",g:"Paz não é a falta de problema. É estar inteiro no meio dele.",k:"paz inteireza completo"},
+{h:"חֶסֶד",t:"chesed",r:"ח-ס-ד",m:"amor leal, fidelidade de aliança",s:"Não é um sentimento passageiro. É lealdade que se sustenta por compromisso, mesmo quando custa.",v:"Salmo 136",g:"Amor de verdade é o que permanece, não o que empolga.",k:"amor misericórdia lealdade"},
+{h:"רוּחַ",t:"ruach",r:"ר-ו-ח",m:"vento, sopro, espírito",s:"A mesma palavra serve para vento, fôlego e Espírito. O texto hebraico conecta o invisível que move com a vida que respira.",v:"Gênesis 1:2",g:"O que te move por dentro é invisível como o vento, e é real.",k:"espírito vento sopro fôlego"},
+{h:"נֶפֶשׁ",t:"nefesh",r:"נ-פ-שׁ",m:"ser vivo, a pessoa inteira, fôlego",s:"Traduzida como 'alma', mas no hebraico é a pessoa viva por inteiro, com fome, desejo e respiração. Não é uma parte separada do corpo.",v:"Gênesis 2:7",g:"Você não tem uma alma. Você é um ser vivo inteiro.",k:"alma vida pessoa"},
+{h:"אֱמוּנָה",t:"emuná",r:"א-מ-ן (aman)",m:"firmeza, fidelidade",s:"Da raiz que dá a ideia de ser firme, confiável. Fé aqui é firmeza que sustenta, não só crer que algo existe.",v:"Habacuque 2:4",g:"Fé é ficar firme quando nada ao redor está firme.",k:"fé confiança firmeza amém"},
+{h:"כָּבוֹד",t:"kavod",r:"כ-ב-ד",m:"peso, densidade",s:"A raiz carrega a ideia de algo pesado. Glória é aquilo que tem peso, valor e presença.",v:"Salmo 24:7-10",g:"Glória é peso. Quem tem substância não precisa de barulho.",k:"glória honra peso"},
+{h:"תְּשׁוּבָה",t:"teshuvá",r:"שׁ-ו-ב (shuv)",m:"retornar, voltar",s:"Arrependimento aqui é fazer o caminho de volta, uma reorientação de rota, mais do que sentir culpa.",v:"Joel 2:12",g:"Arrepender-se é voltar pra casa, não ficar se punindo.",k:"arrependimento voltar retorno"},
+{h:"שְׁמַע",t:"shemá",r:"שׁ-מ-ע",m:"ouvir e atender",s:"No hebraico bíblico, ouvir normalmente implica responder com ação. Escutar de verdade é obedecer ao que se ouviu.",v:"Deuteronômio 6:4",g:"Ouvir só vira sabedoria quando vira atitude.",k:"ouvir escutar obedecer"},
+{h:"בָּטַח",t:"batach",r:"ב-ט-ח",m:"confiar, apoiar-se com segurança",s:"Ideia de se apoiar inteiro em algo. Confiar é transferir o peso do corpo.",v:"Provérbios 3:5",g:"Confiar é parar de carregar sozinho o peso que não é só seu.",k:"confiar segurança descanso"},
+{h:"עֲבוֹדָה",t:"avodá",r:"ע-ב-ד",m:"trabalho, serviço, adoração",s:"A mesma raiz une trabalho, serviço e culto. Na visão bíblica, o trabalho feito com propósito é uma forma de servir.",v:"Gênesis 2:15",g:"Seu trabalho pode ser adoração quando tem propósito.",k:"trabalho serviço adoração"},
+{h:"בְּרִית",t:"berit",r:"ב-ר-ת",m:"aliança, pacto",s:"Aliança é um compromisso formal entre partes, selado com palavra e compromisso. Não é contrato frio: é vínculo.",v:"Gênesis 15",g:"Palavra dada é um pacto. Cuide do que você promete.",k:"aliança pacto compromisso"},
+{h:"בָּרָא",t:"bará",r:"ב-ר-א",m:"criar (ação de Deus)",s:"Nas Escrituras hebraicas, esse verbo de criar tem Deus como sujeito. Fala de trazer à existência algo novo.",v:"Gênesis 1:1",g:"Você não foi montado de sobras. Foi criado de propósito.",k:"criar criação origem"}
+];
+const $=s=>document.querySelector(s);
+// abas
+$('#nav').onclick=e=>{const t=e.target.dataset.t;if(!t)return;
+document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b===e.target));
+document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===t))};
+// raizes
+function draw(f=''){f=f.toLowerCase();
+$('#grid').innerHTML=W.map((w,i)=>({w,i})).filter(({w})=>(w.t+w.k+w.m+w.r).toLowerCase().includes(f)).map(({w,i})=>
+`<button class="card" data-i="${i}"><div class="he">${w.h}</div><b>${w.t}</b><div class="tr">${w.m}</div></button>`).join('')||'<p>Nada encontrado. Tente outro termo.</p>'}
+$('#q').oninput=e=>draw(e.target.value);
+$('#grid').onclick=e=>{const c=e.target.closest('.card');if(!c)return;const w=W[c.dataset.i];
+$('#det').innerHTML=`<div class="det"><div class="he">${w.h}</div><h3>${w.t}</h3>
+<p><b>Raiz:</b> ${w.r}<br><b>Campo de sentido:</b> ${w.m}<br><b>Texto-chave:</b> ${w.v}</p>
+<p>${w.s}</p><p><b>Frase de ensino:</b> ${w.g}</p>
+<button class="b" onclick="usar(${c.dataset.i})">Criar pílula com esta palavra</button></div>`;
+$('#det').scrollIntoView({behavior:'smooth'})};
+function usar(i){document.querySelector('[data-t=pilula]').click();$('#sel').value=i;$('#gen').click()}
+$('#sel').innerHTML=W.map((w,i)=>`<option value="${i}">${w.t} (${w.m})</option>`).join('');
+// pilula
+$('#gen').onclick=()=>{const w=W[$('#sel').value],f=$('#tom').value==='forte';
+const L=[f?`Para de repetir esse erro sobre a palavra ${w.t}.`:`Você já ouviu falar da palavra ${w.t}?`,
+`No hebraico, ela é ${w.h.replace(/[\u0591-\u05C7]/g,'')}, e vem da raiz ${w.r.split(' ')[0]}.`,
+`A ideia central é: ${w.m}.`,w.s,
+`Em ${w.v}, essa palavra aparece, e o contexto confirma isso.`,
+w.g,
+`Hoje, faça uma coisa: pense onde isso falta na sua vida e dê um passo.`,
+`Se isso fez sentido, me segue e compartilha com quem precisa ouvir.`];
+$('#txt').value=L.join('\n')};
+$('#cp').onclick=()=>{navigator.clipboard.writeText($('#txt').value.replace(/\n/g,' '));$('#msg').textContent='Copiado.'};
+// prompter
+let P=[],pi=0,fs=48;
+function showP(){$('#ph').textContent=P[pi]||'';$('#pn').textContent=(pi+1)+' / '+P.length;$('#ph').style.fontSize=fs+'px'}
+$('#go').onclick=()=>{P=$('#txt').value.split('\n').map(s=>s.trim()).filter(Boolean);
+if(!P.length){$('#msg').textContent='Gere ou escreva um roteiro primeiro.';return}pi=0;$('#pr').classList.add('on');showP()};
+const nx=()=>{if(pi<P.length-1){pi++;showP()}},pv=()=>{if(pi>0){pi--;showP()}};
+$('#pnx').onclick=nx;$('#pp').onclick=pv;$('#px').onclick=()=>$('#pr').classList.remove('on');
+$('#pq').onclick=()=>{fs+=6;showP()};$('#pm').onclick=()=>{fs=Math.max(20,fs-6);showP()};
+document.onkeydown=e=>{if(!$('#pr').classList.contains('on'))return;
+if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();nx()}if(e.key==='ArrowLeft')pv();if(e.key==='Escape')$('#px').click()};
+// checklists
+function list(el,key,items){let s={};try{s=JSON.parse(localStorage.getItem(key)||'{}')}catch(e){}
+$(el).innerHTML=items.map((t,i)=>`<label class="ck"><input type="checkbox" data-i="${i}" ${s[i]?'checked':''}><span>${t}</span></label>`).join('');
+$(el).onchange=e=>{s[e.target.dataset.i]=e.target.checked;try{localStorage.setItem(key,JSON.stringify(s))}catch(x){}}}
+list('#ol','ol',["Aquecimento de voz: 2 minutos de vibração de lábios e bocejos","Dicção: leia um texto em voz alta com uma caneta entre os dentes, depois sem","Respiração: inspire 4s, solte 8s falando 'ssss' (5 repetições)","Grave 1 pílula de 45s sem cortar e assista com o som desligado: observe gestos e rosto","Ouça de novo só o áudio: onde você correu, onde pausou bem?","Treine pausa: 2 segundos de silêncio depois da frase mais importante"]);
+list('#pl','pl',["Seg: estudar 2 raízes hebraicas e ler o texto-chave inteiro","Ter: escrever e gravar 1 pílula","Qua: treino de oratória completo + revisar gravação","Qui: estudar 2 raízes novas, checar em dicionário ou léxico confiável","Sex: gravar 3 pílulas em sequência (frase por frase)","Sáb: ensinar uma raiz a uma pessoa de verdade, ao vivo","Dom: descanso e revisão do que funcionou"]);
+$('#rs').onclick=()=>{try{localStorage.removeItem('pl')}catch(e){}list('#pl','pl',[...document.querySelectorAll('#pl span')].map(s=>s.textContent))};
+draw();
+</script>
+</body>
+</html>
